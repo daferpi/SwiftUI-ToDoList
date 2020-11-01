@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ToDoListView: View {
+
+    @EnvironmentObject var toDoStorage: ToDoStorage
+
     var body: some View {
         NavigationView {
             List {
-                ForEach([ToDoItem(title: "Walk the dog", important: true),
-                         ToDoItem(title: "Buy cheese", important: false)]) { todo in
+                ForEach(self.toDoStorage.toDoList) { todo in
                     if todo.important {
                         Text(todo.title)
                             .bold()
@@ -40,5 +42,6 @@ struct ToDoListView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ToDoListView()
+            .environmentObject(ToDoStorage())
     }
 }
