@@ -28,7 +28,13 @@ struct ToDoListView: View {
                     } else {
                         Text(todo.title)
                     }
-                }
+                }.onDelete(perform: { indexSet in
+                    if let index = indexSet.first {
+                        self.toDoStorage
+                            .toDoList
+                            .remove(at: index)
+                    }
+                })
             }.navigationTitle("To Dos")
             .navigationBarItems(trailing: NavigationLink(
                                     destination: CreateToDo(),
